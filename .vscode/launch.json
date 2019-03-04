@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - Matrix",
+      "request": "launch",
+      "mainClass": "Matrix",
+      "projectName": "compilers-lang-recognization_83afde76"
+    }
+  ]
+}
