@@ -37,7 +37,7 @@ public class Matrix {
     printMatrix(vector);
 
     try {
-      int result[][] = multiplyMatrix(matrix, vector);
+      int result[][] = multiplyMatrix(vector, matrix);
       printMatrix(result);
     } catch (Exception e) {
       System.out.println(e);
