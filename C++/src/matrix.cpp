@@ -24,12 +24,24 @@ vector<vector<int>> multiplyMatrix(vector<vector<int>> matrix1, vector<vector<in
   {
     if (int(matrix1[i].size()) != int(matrix2.size()))
     {
-      cout << "[ERR] Cannot multiply!" << endl;
-      return NULL;
+      throw invalid_argument("[ERR] Cannot multiply!");
     }
   }
 
+  vector<vector<int>> resultMatrix(int(matrix1.size()), vector<int>(int(matrix2[0].size()), 0));
 
+  for (int i = 0; i < int(resultMatrix.size()); i++)
+  {
+    for (int j = 0; j < int(resultMatrix[i].size()); j++)
+    {
+      for (int k = 0; k < int(matrix1[0].size()); k++)
+      {
+        resultMatrix[i][j] += matrix1[i][k] * matrix2[k][j];
+      }
+    }
+  }
+
+  return resultMatrix;
 }
 
 int main(int argc, char const *argv[])
@@ -38,5 +50,17 @@ int main(int argc, char const *argv[])
   vector<vector<int>> matrix2 = {{1, 2, 3}};
 
   printMatrix(matrix1);
+  printMatrix(matrix2);
+
+  try
+  {
+    vector<vector<int>> result = multiplyMatrix(matrix2, matrix1);
+    printMatrix(result);
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << e.what() << '\n';
+  }
+
   return 0;
 }
