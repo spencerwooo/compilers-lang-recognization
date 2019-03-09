@@ -1,3 +1,5 @@
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Matrix {
 
   public static void printMatrix(int matrix[][]) {
@@ -31,16 +33,32 @@ public class Matrix {
   }
 
   public static void main(String[] args) {
-    int matrix[][] = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-    int vector[][] = { { 1, 2, 3 } };
-    printMatrix(matrix);
-    printMatrix(vector);
+    int matrixSize = 10000;
+    int[][] matrix = new int[matrixSize][matrixSize];
+    int[][] vector = new int[1][matrixSize];
+
+    for (int i = 0; i < matrixSize; i++) {
+      for (int j = 0; j < matrixSize; j++) {
+        matrix[i][j] = ThreadLocalRandom.current().nextInt(1, 10);
+      }
+    }
+
+    for (int i = 0; i < matrixSize; i++) {
+      vector[0][i] = ThreadLocalRandom.current().nextInt(1, 10);
+    }
+
+    long startTime = System.currentTimeMillis();
 
     try {
       int result[][] = multiplyMatrix(vector, matrix);
-      printMatrix(result);
+      // printMatrix(result);
+      System.out.println(result[0][0]);
     } catch (Exception e) {
       System.out.println(e);
     }
+
+    long endTime = System.currentTimeMillis();
+    long totalTime = endTime - startTime;
+    System.out.println("Total Time: " + totalTime + "ms");
   }
 }
