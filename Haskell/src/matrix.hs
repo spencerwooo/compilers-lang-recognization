@@ -1,11 +1,26 @@
 import Data.List
+import Text.Printf
+import System.CPUTime
 
-mmult :: Num a => [[a]] -> [[a]] -> [[a]]
-mmult a b = [ [ sum $ zipWith (*) ar bc | bc <- (transpose b) ] | ar <- a ]
+matrixMultiply :: Num a => [[a]] -> [[a]] -> [[a]]
+matrixMultiply a b = [ [ sum $ zipWith (*) ar bc | bc <- (transpose b) ] | ar <- a ]
 
-matrix1 = [[1,2,3],[4,5,6],[7,8,9]]
-matrix2 = [[1,2,3],[4,5,6]]
+matrixGenerator n =
+  let rowIndex n k = [x | x <- [1,2..n]]
+  in [rowIndex n k | k <- [1,2..n]]
 
-result = matrix1 `mmult` matrix2
+vectorGenerator n =
+  let rowIndex n k = [x | x <- [1,2..n]]
+  in [rowIndex n k | let k = 1]
 
--- print result
+main = do
+  let matrix = matrixGenerator 1000
+  let vector = vectorGenerator 1000
+
+  startTime <- getCPUTime
+  let product = matrixMultiply vector matrix
+  print product
+  endTime <- getCPUTime
+
+  let totalTime = (fromIntegral(endTime - startTime)) / (10 ^ 9)
+  printf "Total time: %f ms\n" (totalTime :: Double)
